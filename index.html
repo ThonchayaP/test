@@ -79,8 +79,8 @@
     <p id="gSub">Connect</p>
     <input id="gApi" type="url" autocomplete="off" placeholder="API URL (…/exec)">
     <input id="gToken" type="password" autocomplete="off" placeholder="Access token">
-    <input id="gPw" type="password" autocomplete="off" placeholder="Master password" style="display:none">
-    <input id="gPw2" type="password" autocomplete="off" placeholder="Confirm master password" style="display:none">
+    <input id="gPw" type="password" autocomplete="off" placeholder="Master password">
+    <input id="gPw2" type="password" autocomplete="off" placeholder="Confirm master password">
     <div id="gErr" class="gerr"></div>
     <button id="gBtn" class="gbtn">Connect</button>
     <span id="gLink" class="glink" style="display:none">Disconnect this device</span>
@@ -122,10 +122,10 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  var ICON={eyeOpen:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>',eyeOff:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>',copy:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',check:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',edit:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',trash:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',plus:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'};
+  var ICON={eyeOpen:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>',eyeOff:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>',copy:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',check:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',edit:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',trash:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',plus:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',clock:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9"/></svg>'};
   var MASK='••••••';
-  var CFG_KEY='vault_sec_cfg', CACHE_KEY='vault_sec_blob';
-  var cfg=null, cryptoKey=null, cryptoSalt=null, ITER=250000;
+  var LC_KEY='vault_lc', CACHE_KEY='vault_cache';   // LC = encrypted {api,token}; CACHE = encrypted vault
+  var cfg=null, cryptoKey=null, cryptoSalt=null, ITER=600000;
   var currentBlob=null, pendingSeed=null, gateMode='connect';
   var state={vault:[],history:[]};
   var editingId=null, sortMode='az', SORT_LABEL={az:'A–Z',za:'Z–A',none:'Default'};
@@ -134,89 +134,121 @@
 
   var $=function(id){return document.getElementById(id);};
   var listEl,emptyEl,qEl,toastEl,barEl;
-  function esc(s){return (s==null?'':String(s)).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  // ---- safe DOM builders (user data -> textContent only) ----
+  function mk(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+  function icoBtn(cls,icon,title){var b=document.createElement('button');b.className='iconbtn'+(cls?' '+cls:'');b.innerHTML=icon;if(title)b.setAttribute('title',title);return b;}  // icon = trusted constant
+
   function mask(s){return '•'.repeat(Math.min(Math.max((s||'').length,8),18));}
   function hasVal(s){return s&&s!=='-';}
   function busy(on){barEl.classList.toggle('on',!!on);}
   function newId(){return 'e'+Date.now().toString(36)+Math.floor(Math.random()*1e6).toString(36);}
   function clean(o){return {service:String((o&&o.service)||'').trim(),user:String((o&&o.user)||'').trim(),password:String((o&&o.password)||'').trim(),backup:String((o&&o.backup)||'').trim()};}
 
-  // ---- crypto ----
+  // ---- crypto (AES-256-GCM + PBKDF2 600k) ----
   function b64(u8){var s='';for(var i=0;i<u8.length;i++)s+=String.fromCharCode(u8[i]);return btoa(s);}
   function ub64(str){var bin=atob(str),u8=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);return u8;}
   function deriveKey(pw,salt,iter){return crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']).then(function(km){return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:iter,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);});}
-  function encryptState(){var iv=crypto.getRandomValues(new Uint8Array(12));var data=new TextEncoder().encode(JSON.stringify({vault:state.vault,history:state.history}));return crypto.subtle.encrypt({name:'AES-GCM',iv:iv},cryptoKey,data).then(function(ct){return JSON.stringify({v:1,salt:b64(cryptoSalt),iter:ITER,iv:b64(iv),ct:b64(new Uint8Array(ct))});});}
-  function decryptBlob(blobStr,pw){var blob=JSON.parse(blobStr);var salt=ub64(blob.salt);var it=blob.iter||ITER;return deriveKey(pw,salt,it).then(function(key){return crypto.subtle.decrypt({name:'AES-GCM',iv:ub64(blob.iv)},key,ub64(blob.ct)).then(function(pt){return {data:JSON.parse(new TextDecoder().decode(pt)),key:key,salt:salt,iter:it};});});}
+  function encObj(obj){var iv=crypto.getRandomValues(new Uint8Array(12));var data=new TextEncoder().encode(JSON.stringify(obj));return crypto.subtle.encrypt({name:'AES-GCM',iv:iv},cryptoKey,data).then(function(ct){return JSON.stringify({v:1,salt:b64(cryptoSalt),iter:ITER,iv:b64(iv),ct:b64(new Uint8Array(ct))});});}
+  function decWithKey(key,blob){return crypto.subtle.decrypt({name:'AES-GCM',iv:ub64(blob.iv)},key,ub64(blob.ct)).then(function(pt){return JSON.parse(new TextDecoder().decode(pt));});}
   function genPassword(len){len=len||18;var sets='abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%^&*()-_=+';var n=sets.length;var maxOk=Math.floor(4294967296/n)*n;var out='';var buf=new Uint32Array(1);while(out.length<len){crypto.getRandomValues(buf);if(buf[0]<maxOk)out+=sets[buf[0]%n];}return out;}
 
-  // ---- API (POST only, token in body) ----
+  // ---- API (POST, token in body) ----
   function apiPost(body){body.token=cfg.token;return fetch(cfg.api,{method:'POST',redirect:'follow',body:JSON.stringify(body)}).then(function(r){return r.json();});}
-  function getCfg(){try{return JSON.parse(localStorage.getItem(CFG_KEY)||'null');}catch(e){return null;}}
+  function getLC(){try{return localStorage.getItem(LC_KEY);}catch(e){return null;}}
+  function setLC(s){try{localStorage.setItem(LC_KEY,s);}catch(e){}}
   function cacheBlob(bl){try{localStorage.setItem(CACHE_KEY,bl);}catch(e){}}
-  function getCachedBlob(){try{return localStorage.getItem(CACHE_KEY);}catch(e){return null;}}
-  function clearCfg(){localStorage.removeItem(CFG_KEY);localStorage.removeItem(CACHE_KEY);cfg=null;}
+  function getCache(){try{return localStorage.getItem(CACHE_KEY);}catch(e){return null;}}
+  function wipeLocal(){try{localStorage.removeItem(LC_KEY);localStorage.removeItem(CACHE_KEY);}catch(e){}}
   function status(kind){var d=$('syncDot'),t=$('syncTxt');d.className='dot '+(kind==='ok'?'ok':kind==='save'?'save':kind==='off'?'off':'');t.textContent=kind==='ok'?'synced · encrypted':kind==='save'?'saving…':kind==='off'?'offline (cached)':'…';}
 
-  function push(){status('save');return encryptState().then(function(bl){currentBlob=bl;cacheBlob(bl);return apiPost({action:'put',blob:bl});}).then(function(d){if(d.error)throw new Error(d.error);status('ok');}).catch(function(){status('off');toast('Saved offline — needs connection to sync');});}
+  function push(){status('save');return encObj({vault:state.vault,history:state.history}).then(function(bl){currentBlob=bl;cacheBlob(bl);return apiPost({action:'put',blob:bl});}).then(function(d){if(d.error)throw new Error(d.error);status('ok');}).catch(function(){status('off');toast('Saved offline — needs connection to sync');});}
 
-  // ---- gate: connect / create / unlock ----
+  // ---- gate ----
   function showGate(mode,msg){
     gateMode=mode; $('gate').classList.add('show'); $('gErr').textContent=msg||'';
     var api=$('gApi'),tok=$('gToken'),pw=$('gPw'),pw2=$('gPw2'),link=$('gLink');
-    api.style.display=tok.style.display=pw.style.display=pw2.style.display='none'; link.style.display='none'; pw.value='';pw2.value='';
-    if(mode==='connect'){ $('gTitle').textContent='Connect Vault'; $('gSub').textContent='Paste API URL and token (stored on this device only)'; api.style.display=tok.style.display='block'; $('gBtn').textContent='Connect'; setTimeout(function(){api.focus();},80); }
-    else if(mode==='create'){ $('gTitle').textContent='Create master password'; $('gSub').textContent='Encrypts your vault. No recovery if forgotten.'; pw.style.display=pw2.style.display='block'; $('gBtn').textContent='Create & encrypt'; link.style.display='block'; setTimeout(function(){pw.focus();},80); }
-    else { $('gTitle').textContent='Vault'; $('gSub').textContent='Enter master password'; pw.style.display='block'; $('gBtn').textContent='Unlock'; link.style.display='block'; setTimeout(function(){pw.focus();},80); }
+    [api,tok,pw,pw2].forEach(function(e){e.style.display='none';e.value='';}); link.style.display='none';
+    if(mode==='connect'){$('gTitle').textContent='Connect Vault';$('gSub').textContent='API URL + token + master password (this device only)';api.style.display=tok.style.display=pw.style.display=pw2.style.display='block';$('gBtn').textContent='Connect';setTimeout(function(){api.focus();},80);}
+    else {$('gTitle').textContent='Vault';$('gSub').textContent='Enter master password';pw.style.display='block';$('gBtn').textContent='Unlock';link.style.display='block';setTimeout(function(){pw.focus();},80);}
   }
   function hideGate(){$('gate').classList.remove('show');}
   function gateFail(msg){$('gBtn').disabled=false;busy(false);var el=(gateMode==='connect')?$('gApi'):$('gPw');el.classList.add('shake');setTimeout(function(){el.classList.remove('shake');},400);$('gErr').textContent=msg;}
 
   function boot(){
-    cfg=getCfg();
-    if(!cfg){showGate('connect','');return;}
-    status('save');busy(true);
-    apiPost({action:'get'}).then(function(d){
-      busy(false);
-      if(d.error){ if(/unauthorized/i.test(d.error)){clearCfg();showGate('connect','Token rejected — reconnect');} else {tryCache('Server error');} return; }
-      if(d.blob){currentBlob=d.blob;cacheBlob(d.blob);status('ok');showGate('unlock','');}
-      else if(d.seed){pendingSeed=d.seed;status('ok');showGate('create','');}
-    }).catch(function(){busy(false);tryCache('');});
+    if(getLC()) showGate('unlock','');
+    else showGate('connect','');
   }
-  function tryCache(pre){var c=getCachedBlob();if(c){currentBlob=c;status('off');showGate('unlock',pre?pre+' — using cached copy':'');}else{status('off');showGate('connect',pre||'Offline and no cached data');}}
 
-  function gateSubmit(){
-    if(gateMode==='connect'){
-      var api=$('gApi').value.trim().replace(/\s+/g,''); var token=$('gToken').value.trim();
-      if(!/^https:\/\/.+\/exec$/.test(api)){$('gErr').textContent='API URL must end with /exec';return;}
-      if(!token){$('gErr').textContent='Enter the token';return;}
-      $('gBtn').disabled=true;busy(true);$('gErr').textContent='';
-      cfg={api:api,token:token};
-      apiPost({action:'get'}).then(function(d){
-        $('gBtn').disabled=false;busy(false);
-        if(d.error){cfg=null;gateFail(/unauthorized/i.test(d.error)?'Wrong token':'Connect failed');return;}
-        localStorage.setItem(CFG_KEY,JSON.stringify(cfg));
-        if(d.blob){currentBlob=d.blob;cacheBlob(d.blob);showGate('unlock','');}
-        else if(d.seed){pendingSeed=d.seed;showGate('create','');}
-      }).catch(function(){$('gBtn').disabled=false;busy(false);cfg=null;gateFail('Connect failed — check URL');});
-    }
-    else if(gateMode==='create'){
-      var p=$('gPw').value; if(p.length<8){$('gErr').textContent='Use at least 8 characters';return;}
-      if(p!==$('gPw2').value){$('gErr').textContent='Passwords do not match';return;}
-      $('gBtn').disabled=true;busy(true);
-      cryptoSalt=crypto.getRandomValues(new Uint8Array(16));
-      deriveKey(p,cryptoSalt,ITER).then(function(k){cryptoKey=k;state.vault=pendingSeed.vault||[];state.history=pendingSeed.history||[];return encryptState();})
-        .then(function(bl){currentBlob=bl;cacheBlob(bl);return apiPost({action:'put',blob:bl});})
-        .then(function(d){$('gBtn').disabled=false;busy(false);if(d.error)throw new Error(d.error);hideGate();afterState();status('ok');startIdle();})
-        .catch(function(){gateFail('Could not set up (needs https / modern browser)');});
-    }
-    else {
-      var pw=$('gPw').value; if(!pw){$('gErr').textContent='Enter your password';return;}
-      $('gBtn').disabled=true;busy(true);
-      decryptBlob(currentBlob,pw).then(function(res){$('gBtn').disabled=false;busy(false);cryptoKey=res.key;cryptoSalt=res.salt;ITER=res.iter;state.vault=res.data.vault||[];state.history=res.data.history||[];hideGate();afterState();status(navigator.onLine?'ok':'off');startIdle();})
-        .catch(function(){gateFail('Wrong password');});
-    }
+  // unlock: master pw -> decrypt LC(api,token) -> fetch blob -> decrypt vault
+  function doUnlock(){
+    var pw=$('gPw').value; if(!pw){$('gErr').textContent='Enter your password';return;}
+    $('gBtn').disabled=true; busy(true);
+    var lc; try{ lc=JSON.parse(getLC()); }catch(e){ lc=null; }
+    if(!lc){ $('gBtn').disabled=false;busy(false); showGate('connect','Reconnect this device'); return; }
+    var salt=ub64(lc.salt), iter=lc.iter||ITER, key;
+    deriveKey(pw,salt,iter).then(function(k){ key=k; return decWithKey(k,lc); }).then(function(conf){
+      cfg={api:conf.api,token:conf.token}; cryptoKey=key; cryptoSalt=salt; ITER=iter;
+      return apiPost({action:'get'});
+    }).then(function(d){
+      $('gBtn').disabled=false; busy(false);
+      if(d && d.error){ status('off'); return useCacheOrFail(); }
+      if(d && d.blob){ currentBlob=d.blob; cacheBlob(d.blob); return openVault(d.blob,'ok'); }
+      if(d && d.seed){ // server was reset; re-seed under existing key
+        state.vault=d.seed.vault||[]; state.history=d.seed.history||[];
+        return encObj({vault:state.vault,history:state.history}).then(function(bl){currentBlob=bl;cacheBlob(bl);return apiPost({action:'put',blob:bl});}).then(function(){hideGate();afterState();status('ok');startIdle();});
+      }
+    }).catch(function(e){
+      $('gBtn').disabled=false; busy(false);
+      if(!cryptoKey){ gateFail('Wrong password'); }        // LC decrypt failed = wrong pw
+      else { status('off'); useCacheOrFail(); }             // network failed
+    });
   }
-  function disconnect(){ if(!confirm('Disconnect and forget this device? (API URL + token + cached data removed)'))return; clearCfg(); cryptoKey=null; state={vault:[],history:[]}; renderList(); $('total').textContent=0; showGate('connect',''); }
+  function useCacheOrFail(){
+    var c=getCache(); if(!c){ toast('Offline and no cached data'); return; }
+    openVault(c,'off');
+  }
+  function openVault(blobStr,st){
+    var blob; try{blob=JSON.parse(blobStr);}catch(e){gateFail('Corrupt data');return;}
+    return decWithKey(cryptoKey,blob).then(function(data){
+      state.vault=data.vault||[]; state.history=data.history||[];
+      hideGate(); afterState(); status(st); startIdle();
+    }).catch(function(){ gateFail('Wrong password'); });
+  }
+
+  // connect: first setup on this device
+  function doConnect(){
+    var api=$('gApi').value.trim().replace(/\s+/g,''); var token=$('gToken').value.trim();
+    var pw=$('gPw').value; var pw2=$('gPw2').value;
+    if(!/^https:\/\/.+\/exec$/.test(api)){$('gErr').textContent='API URL must end with /exec';return;}
+    if(!token){$('gErr').textContent='Enter the token';return;}
+    if(pw.length<8){$('gErr').textContent='Master password: at least 8 characters';return;}
+    if(pw!==pw2){$('gErr').textContent='Master passwords do not match';return;}
+    $('gBtn').disabled=true; busy(true); $('gErr').textContent='';
+    cfg={api:api,token:token};
+    apiPost({action:'get'}).then(function(d){
+      if(d && d.error){ $('gBtn').disabled=false;busy(false);cfg=null;gateFail(/unauthorized/i.test(d.error)?'Wrong token':'Connect failed'); return; }
+      if(d && d.blob){
+        // existing account: must use the account's salt from the blob
+        var blob=JSON.parse(d.blob); cryptoSalt=ub64(blob.salt); ITER=blob.iter||ITER;
+        return deriveKey(pw,cryptoSalt,ITER).then(function(k){ cryptoKey=k; return decWithKey(k,blob); }).then(function(data){
+          state.vault=data.vault||[]; state.history=data.history||[]; currentBlob=d.blob; cacheBlob(d.blob);
+          return saveLCAndOpen('ok');
+        }).catch(function(){ $('gBtn').disabled=false;busy(false);cryptoKey=null;gateFail('Wrong master password for this vault'); });
+      }
+      if(d && d.seed){
+        // first ever: new salt
+        cryptoSalt=crypto.getRandomValues(new Uint8Array(16));
+        return deriveKey(pw,cryptoSalt,ITER).then(function(k){ cryptoKey=k; state.vault=d.seed.vault||[]; state.history=d.seed.history||[]; return encObj({vault:state.vault,history:state.history}); }).then(function(bl){ currentBlob=bl; cacheBlob(bl); return apiPost({action:'put',blob:bl}); }).then(function(r){ if(r.error) throw new Error(r.error); return saveLCAndOpen('ok'); }).catch(function(){ $('gBtn').disabled=false;busy(false);gateFail('Setup failed'); });
+      }
+    }).catch(function(){ $('gBtn').disabled=false;busy(false);cfg=null;gateFail('Connect failed — check URL'); });
+  }
+  function saveLCAndOpen(st){
+    return encObj({api:cfg.api,token:cfg.token}).then(function(lc){ setLC(lc); $('gBtn').disabled=false; busy(false); hideGate(); afterState(); status(st); startIdle(); });
+  }
+
+  function gateSubmit(){ if(gateMode==='connect') doConnect(); else doUnlock(); }
+  function disconnect(){ if(!confirm('Disconnect and forget this device? (removes API URL, token and cached data from this browser)'))return; wipeLocal(); cfg=null; cryptoKey=null; state={vault:[],history:[]}; renderList(); $('total').textContent=0; showGate('connect',''); }
 
   // ---- auto-lock ----
   function startIdle(){resetIdle();['click','keydown','mousemove','touchstart','scroll'].forEach(function(ev){document.addEventListener(ev,resetIdle,{passive:true});});}
@@ -225,25 +257,38 @@
 
   function afterState(){$('total').textContent=state.vault.length;analyze();renderList();}
 
+  // ---- analysis ----
   function isWeak(p){if(!p)return false;if(p.length<8)return true;var c=0;if(/[a-z]/.test(p))c++;if(/[A-Z]/.test(p))c++;if(/[0-9]/.test(p))c++;if(/[^A-Za-z0-9]/.test(p))c++;return c<=2;}
   function analyze(){var byPw={},pe={};state.vault.forEach(function(e){if(!e.password)return;byPw[e.password]=(byPw[e.password]||0)+1;(pe[e.password]=pe[e.password]||[]).push(e);});reusedSet={};var reused=[];Object.keys(pe).forEach(function(p){if(pe[p].length>1){reusedSet[p]=true;reused.push({password:p,entries:pe[p]});}});reused.sort(function(a,b){return b.entries.length-a.entries.length;});var weak=state.vault.filter(function(e){return e.password&&isWeak(e.password);});analysis={reused:reused,weak:weak,total:state.vault.length,unique:Object.keys(byPw).length};var rc=reused.reduce(function(s,g){return s+g.entries.length;},0);var fl=rc+weak.filter(function(e){return !reusedSet[e.password];}).length;var badge=$('auditBadge');if(fl>0){badge.textContent=fl;badge.style.display='flex';}else badge.style.display='none';}
 
+  // ---- render (safe DOM) ----
   function renderList(){
     var q=qEl.value.trim().toLowerCase();
     var items=state.vault.filter(function(it){return !q||(it.service+' '+it.user).toLowerCase().indexOf(q)!==-1;});
     if(sortMode!=='none'){var dir=sortMode==='za'?-1:1;items.sort(function(a,b){return dir*String(a.service||'').localeCompare(String(b.service||''),undefined,{sensitivity:'base',numeric:true});});}
-    listEl.innerHTML=''; emptyEl.style.display=items.length?'none':'block';
+    listEl.textContent=''; emptyEl.style.display=items.length?'none':'block';
     items.forEach(function(it){
-      var li=document.createElement('li'); li.className='card';
-      var userLine=hasVal(it.user)?'<div class="usr">'+esc(it.user)+'</div>':'';
-      var backupChip=hasVal(it.backup)?'<span class="chip">backup '+esc(it.backup)+'</span>':'';
-      var riskChip=''; if(it.password&&reusedSet[it.password])riskChip+='<span class="chip warn">reused</span>'; if(isWeak(it.password))riskChip+='<span class="chip bad">weak</span>';
-      li.innerHTML='<div class="avatar">'+esc((it.service||'?').charAt(0))+'</div><div class="meta"><div class="svc">'+esc(it.service)+'</div>'+userLine+'<div class="pw"><span class="pwtext" data-shown="0">'+esc(mask(it.password))+'</span>'+backupChip+riskChip+'</div></div><div class="actions"><button class="iconbtn reveal">'+ICON.eyeOpen+'</button><button class="iconbtn copy">'+ICON.copy+'</button><button class="iconbtn edit">'+ICON.edit+'</button><button class="iconbtn danger del">'+ICON.trash+'</button></div>';
-      var pwEl=li.querySelector('.pwtext');
-      li.querySelector('.reveal').addEventListener('click',function(){var sh=pwEl.getAttribute('data-shown')==='1';pwEl.textContent=sh?mask(it.password):it.password;pwEl.setAttribute('data-shown',sh?'0':'1');this.innerHTML=sh?ICON.eyeOpen:ICON.eyeOff;});
-      li.querySelector('.copy').addEventListener('click',function(){var b=this;copy(it.password,function(){b.classList.add('ok');b.innerHTML=ICON.check;toast('Password copied');setTimeout(function(){b.classList.remove('ok');b.innerHTML=ICON.copy;},1400);});});
-      li.querySelector('.edit').addEventListener('click',function(){openForm(it);});
-      li.querySelector('.del').addEventListener('click',function(){delEntry(it);});
+      var li=mk('li','card');
+      li.appendChild(mk('div','avatar',(it.service||'?').charAt(0)));
+      var meta=mk('div','meta');
+      meta.appendChild(mk('div','svc',it.service));
+      if(hasVal(it.user)) meta.appendChild(mk('div','usr',it.user));
+      var pw=mk('div','pw');
+      var pwtext=mk('span','pwtext',mask(it.password)); pwtext.setAttribute('data-shown','0');
+      pw.appendChild(pwtext);
+      if(hasVal(it.backup)) pw.appendChild(mk('span','chip','backup '+it.backup));
+      if(it.password&&reusedSet[it.password]) pw.appendChild(mk('span','chip warn','reused'));
+      if(isWeak(it.password)) pw.appendChild(mk('span','chip bad','weak'));
+      meta.appendChild(pw); li.appendChild(meta);
+      var actions=mk('div','actions');
+      var reveal=icoBtn('reveal',ICON.eyeOpen,'Show / hide');
+      reveal.addEventListener('click',function(){var sh=pwtext.getAttribute('data-shown')==='1';pwtext.textContent=sh?mask(it.password):it.password;pwtext.setAttribute('data-shown',sh?'0':'1');this.innerHTML=sh?ICON.eyeOpen:ICON.eyeOff;});
+      var cp=icoBtn('copy',ICON.copy,'Copy password');
+      cp.addEventListener('click',function(){var b=this;copy(it.password,function(){b.classList.add('ok');b.innerHTML=ICON.check;toast('Password copied');setTimeout(function(){b.classList.remove('ok');b.innerHTML=ICON.copy;},1400);});});
+      var ed=icoBtn('edit',ICON.edit,'Edit'); ed.addEventListener('click',function(){openForm(it);});
+      var dl=icoBtn('danger del',ICON.trash,'Delete'); dl.addEventListener('click',function(){delEntry(it);});
+      actions.appendChild(reveal); actions.appendChild(cp); actions.appendChild(ed); actions.appendChild(dl);
+      li.appendChild(actions);
       listEl.appendChild(li);
     });
   }
@@ -262,19 +307,70 @@
   function delEntry(it){if(!confirm('Delete "'+it.service+'"?'))return;var idx=state.vault.map(function(x){return x.id;}).indexOf(it.id);if(idx<0)return;var removed=state.vault.splice(idx,1)[0];logEvent('delete',removed.service,snapshot(removed),null);afterState();toast('Deleted');push();}
 
   function openHistory(){renderHistory();showModal('histModal');}
-  function renderHistory(){var box=$('hlist');box.innerHTML='';var evs=state.history.slice().sort(function(a,b){return b.ts-a.ts;});if(!evs.length){box.innerHTML='<div class="empty">No history yet</div>';return;}
-    evs.forEach(function(ev){var verb={create:'Created',edit:'Edited',delete:'Deleted',seed:'Initialised'}[ev.action]||ev.action;var name=ev.action==='seed'?(ev.count+' items imported'):('<b>'+esc(ev.service)+'</b>');var detail='';
-      if(ev.action==='edit'&&ev.changes){detail='<div class="changes">'+ev.changes.map(function(c){return '<div class="chg"><span class="f">'+esc(c.field)+'</span><span class="from mono">'+esc(c.from)+'</span><span class="arrow">→</span><span class="to mono">'+esc(c.to)+'</span></div>';}).join('')+'</div>';}
-      else if((ev.action==='create'||ev.action==='delete')&&ev.snapshot){var sn=ev.snapshot;detail='<div class="changes"><div class="chg"><span class="f">account</span><span class="mono">'+esc(sn.user||'—')+'</span></div><div class="chg"><span class="f">password</span><span class="mono">'+esc(sn.password||'—')+'</span></div></div>';}
-      var el=document.createElement('div');el.className='hitem';el.innerHTML='<div class="hdot '+esc(ev.action)+'">'+dotIcon(ev.action)+'</div><div class="hmain"><div class="hline">'+verb+' '+name+'</div><div class="htime">'+esc(timeStr(ev.ts))+'</div>'+detail+'</div>';box.appendChild(el);});}
-  function dotIcon(a){if(a==='create')return ICON.plus;if(a==='delete')return ICON.trash;if(a==='edit')return ICON.edit;return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9"/></svg>';}
+  function renderHistory(){
+    var box=$('hlist'); box.textContent='';
+    var evs=state.history.slice().sort(function(a,b){return b.ts-a.ts;});
+    if(!evs.length){ box.appendChild(mk('div','empty','No history yet')); return; }
+    evs.forEach(function(ev){
+      var item=mk('div','hitem');
+      var d=mk('div','hdot '+ev.action); d.innerHTML=dotIcon(ev.action); item.appendChild(d);
+      var main=mk('div','hmain');
+      var line=mk('div','hline');
+      var verb={create:'Created',edit:'Edited',delete:'Deleted',seed:'Initialised'}[ev.action]||ev.action;
+      line.appendChild(document.createTextNode(verb+' '));
+      if(ev.action==='seed') line.appendChild(document.createTextNode((ev.count||0)+' items imported'));
+      else line.appendChild(mk('b',null,ev.service));
+      main.appendChild(line);
+      main.appendChild(mk('div','htime',timeStr(ev.ts)));
+      if(ev.action==='edit'&&ev.changes){
+        var ch=mk('div','changes');
+        ev.changes.forEach(function(c){
+          var row=mk('div','chg'); row.appendChild(mk('span','f',c.field));
+          row.appendChild(mk('span','from mono',c.from)); row.appendChild(mk('span','arrow','→')); row.appendChild(mk('span','to mono',c.to));
+          ch.appendChild(row);
+        });
+        main.appendChild(ch);
+      } else if((ev.action==='create'||ev.action==='delete')&&ev.snapshot){
+        var sn=ev.snapshot, cc=mk('div','changes');
+        var r1=mk('div','chg'); r1.appendChild(mk('span','f','account')); r1.appendChild(mk('span','mono',sn.user||'—')); cc.appendChild(r1);
+        var r2=mk('div','chg'); r2.appendChild(mk('span','f','password')); r2.appendChild(mk('span','mono',sn.password||'—')); cc.appendChild(r2);
+        main.appendChild(cc);
+      }
+      item.appendChild(main); box.appendChild(item);
+    });
+  }
+  function dotIcon(a){if(a==='create')return ICON.plus;if(a==='delete')return ICON.trash;if(a==='edit')return ICON.edit;return ICON.clock;}
   function timeStr(ts){var d=new Date(ts),df=Math.round((Date.now()-ts)/1000),rel;if(df<60)rel='just now';else if(df<3600)rel=Math.floor(df/60)+'m ago';else if(df<86400)rel=Math.floor(df/3600)+'h ago';else if(df<604800)rel=Math.floor(df/86400)+'d ago';else rel='';var abs=d.toLocaleString(undefined,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});return rel?(rel+' · '+abs):abs;}
 
   function openAudit(){analyze();renderAudit();showModal('auditModal');}
-  function renderAudit(){var rt=analysis.reused.reduce(function(s,g){return s+g.entries.length;},0);var h='<div class="astat"><div class="box"><div class="n">'+analysis.total+'</div><div class="k">Total</div></div><div class="box"><div class="n '+(analysis.reused.length?'warn':'ok')+'">'+rt+'</div><div class="k">Reused</div></div><div class="box"><div class="n '+(analysis.weak.length?'bad':'ok')+'">'+analysis.weak.length+'</div><div class="k">Weak</div></div><div class="box"><div class="n">'+analysis.unique+'</div><div class="k">Unique</div></div></div>';
-    if(analysis.reused.length){h+='<div class="asec"><h3>REUSED PASSWORDS ('+analysis.reused.length+')</h3>';analysis.reused.forEach(function(g){var who=g.entries.map(function(e){return '<span>'+esc(e.service)+(hasVal(e.user)?' · '+esc(e.user):'')+'</span>';}).join('');h+='<div class="agroup"><div class="top"><span class="pwv">'+esc(g.password)+'</span><span class="apill warn">×'+g.entries.length+'</span></div><div class="who">'+who+'</div></div>';});h+='</div>';}
-    if(analysis.weak.length){h+='<div class="asec"><h3>WEAK PASSWORDS ('+analysis.weak.length+')</h3>';analysis.weak.forEach(function(e){h+='<div class="agroup"><div class="top"><span class="pwv">'+esc(e.service)+(hasVal(e.user)?' · '+esc(e.user):'')+'</span><span class="apill bad">weak</span></div><div class="who"><span>'+esc(e.password)+'</span></div></div>';});h+='</div>';}
-    if(!analysis.reused.length&&!analysis.weak.length)h+='<div class="empty">All clear 🎉</div>';$('auditBody').innerHTML=h;}
+  function renderAudit(){
+    var box=$('auditBody'); box.textContent='';
+    var rt=analysis.reused.reduce(function(s,g){return s+g.entries.length;},0);
+    var stat=mk('div','astat');
+    function statBox(n,k,cls){var b=mk('div','box');b.appendChild(mk('div','n'+(cls?' '+cls:''),String(n)));b.appendChild(mk('div','k',k));return b;}
+    stat.appendChild(statBox(analysis.total,'Total',''));
+    stat.appendChild(statBox(rt,'Reused',analysis.reused.length?'warn':'ok'));
+    stat.appendChild(statBox(analysis.weak.length,'Weak',analysis.weak.length?'bad':'ok'));
+    stat.appendChild(statBox(analysis.unique,'Unique',''));
+    box.appendChild(stat);
+    if(analysis.reused.length){
+      var s1=mk('div','asec'); s1.appendChild(mk('h3',null,'REUSED PASSWORDS ('+analysis.reused.length+')'));
+      analysis.reused.forEach(function(g){
+        var grp=mk('div','agroup'); var top=mk('div','top'); top.appendChild(mk('span','pwv',g.password)); top.appendChild(mk('span','apill warn','×'+g.entries.length)); grp.appendChild(top);
+        var who=mk('div','who'); g.entries.forEach(function(e){ who.appendChild(mk('span',null,e.service+(hasVal(e.user)?' · '+e.user:''))); }); grp.appendChild(who); s1.appendChild(grp);
+      });
+      box.appendChild(s1);
+    }
+    if(analysis.weak.length){
+      var s2=mk('div','asec'); s2.appendChild(mk('h3',null,'WEAK PASSWORDS ('+analysis.weak.length+')'));
+      analysis.weak.forEach(function(e){
+        var grp=mk('div','agroup'); var top=mk('div','top'); top.appendChild(mk('span','pwv',e.service+(hasVal(e.user)?' · '+e.user:''))); top.appendChild(mk('span','apill bad','weak')); grp.appendChild(top);
+        var who=mk('div','who'); who.appendChild(mk('span',null,e.password)); grp.appendChild(who); s2.appendChild(grp);
+      });
+      box.appendChild(s2);
+    }
+    if(!analysis.reused.length&&!analysis.weak.length) box.appendChild(mk('div','empty','All clear — no reused or weak passwords 🎉'));
+  }
 
   function showModal(id){$(id).classList.add('show');} function hideModal(id){$(id).classList.remove('show');}
   function copy(text,done){try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,function(){fb(text,done);});return;}}catch(e){}fb(text,done);}
@@ -288,8 +384,9 @@
     Array.prototype.forEach.call(document.querySelectorAll('.overlay'),function(o){o.addEventListener('click',function(e){if(e.target===o)hideModal(o.id);});});
     document.addEventListener('keydown',function(e){if(e.key==='Escape'){hideModal('formModal');hideModal('histModal');hideModal('auditModal');}});
     $('gBtn').addEventListener('click',gateSubmit);
-    $('gToken').addEventListener('keydown',function(e){if(e.key==='Enter')gateSubmit();});
-    $('gPw').addEventListener('keydown',function(e){if(e.key==='Enter'){if(gateMode==='create')$('gPw2').focus();else gateSubmit();}});
+    $('gApi').addEventListener('keydown',function(e){if(e.key==='Enter')$('gToken').focus();});
+    $('gToken').addEventListener('keydown',function(e){if(e.key==='Enter')$('gPw').focus();});
+    $('gPw').addEventListener('keydown',function(e){if(e.key==='Enter'){if(gateMode==='connect')$('gPw2').focus();else gateSubmit();}});
     $('gPw2').addEventListener('keydown',function(e){if(e.key==='Enter')gateSubmit();});
     $('gLink').addEventListener('click',disconnect);
     $('btnLock').addEventListener('click',lockNow);
