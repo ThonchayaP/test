@@ -162,7 +162,10 @@
   function wipeLocal(){try{localStorage.removeItem(LC_KEY);localStorage.removeItem(CACHE_KEY);}catch(e){}}
   function status(kind){var d=$('syncDot'),t=$('syncTxt');d.className='dot '+(kind==='ok'?'ok':kind==='save'?'save':kind==='off'?'off':'');t.textContent=kind==='ok'?'synced · encrypted':kind==='save'?'saving…':kind==='off'?'offline (cached)':'…';}
 
-  function push(){status('save');return encObj({vault:state.vault,history:state.history}).then(function(bl){currentBlob=bl;cacheBlob(bl);return apiPost({action:'put',blob:bl});}).then(function(d){if(d.error)throw new Error(d.error);status('ok');}).catch(function(){status('off');toast('Saved offline — needs connection to sync');});}
+  function push(){status('save');return encObj({vault:state.vault,history:state.history}).then(function(bl){currentBlob=bl;cacheBlob(bl);return apiPost({action:'put',blob:bl});}).then(function(d){if(d.error)throw new Error(d.error);status('ok');}).catch(function(e){if(e&&/unauthorized/i.test(e.message)){revoked();}else{status('off');toast('Saved offline — needs connection to sync');}});}
+
+  // token revoked on server (rotated): sign this device out
+  function revoked(){wipeLocal();cfg=null;cryptoKey=null;state={vault:[],history:[]};clearTimeout(idleTimer);renderList();$('total').textContent=0;showGate('connect','Signed out — the access token was changed. Reconnect with the new token.');}
 
   // ---- gate ----
   function showGate(mode,msg){
@@ -192,7 +195,7 @@
       return apiPost({action:'get'});
     }).then(function(d){
       $('gBtn').disabled=false; busy(false);
-      if(d && d.error){ status('off'); return useCacheOrFail(); }
+      if(d && d.error){ if(/unauthorized/i.test(d.error)){ revoked(); return; } status('off'); return useCacheOrFail(); }
       if(d && d.blob){ currentBlob=d.blob; cacheBlob(d.blob); return openVault(d.blob,'ok'); }
       if(d && d.seed){ // server was reset; re-seed under existing key
         state.vault=d.seed.vault||[]; state.history=d.seed.history||[];
